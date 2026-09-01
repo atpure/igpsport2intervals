@@ -445,6 +445,7 @@ def main():
     parser.add_argument("--strava-id", default=None, help="Strava Client ID (Optional)")
     parser.add_argument("--strava-secret", default=None, help="Strava Client Secret (Optional)")
     parser.add_argument("--strava-token", default=None, help="Strava Refresh Token (Optional)")
+    parser.add_argument("--all", action="store_true", default=False, help="Sync all past activities (ignore baseline)")
     parser.add_argument("--limit", type=int, default=None, help="Max activities to inspect")
     parser.add_argument("--dry-run", action="store_true", default=False, help="Dry run without uploading")
 
@@ -461,6 +462,7 @@ def main():
     limit_str = get_val(str(args.limit) if args.limit is not None else None, "SYNC_LIMIT", "20")
     limit = int(limit_str) if limit_str.isdigit() else 20
     dry_run = args.dry_run or bool(os.getenv("DRY_RUN")) or (env_file_data.get("DRY_RUN", "").lower() in ("true", "1"))
+    sync_all = args.all or bool(os.getenv("SYNC_ALL")) and os.getenv("SYNC_ALL", "").lower() in ("true", "1", "yes")
 
     missing = []
     if not user:
@@ -485,6 +487,8 @@ def main():
     print("=" * 60)
     print("🚴 iGPSPORT ➔ Intervals.icu & Strava Activity Synchronizer")
     print(f"🕒 Timestamp (UTC): {now_utc.strftime('%Y-%m-%d %H:%M:%S')}")
+    if sync_all:
+        print("🔄 Mode: SYNC ALL (Historical activities included)")
     print("=" * 60)
 
     igp_client = IGPSPORTClient(user, password)
@@ -505,12 +509,13 @@ def main():
     # 2. Check local state (last_sync_timestamp)
     last_sync_ts, synced_state = load_synced_state()
 
-    # If first run (no recorded last_sync_time), initialize baseline to current time
-    if last_sync_ts is None:
+    # If first run without --all, initialize baseline to current time
+    if last_sync_ts is None and not sync_all:
         print("\n" + "=" * 60)
         print(f"🆕 [First Run] Initialized sync baseline time to {now_utc.strftime('%Y-%m-%d %H:%M:%S')} UTC.")
         print(f"ℹ️ Historical activities before this timestamp will not be synced.")
         print(f"ℹ️ Only new activities recorded after this point will be synchronized.")
+        print(f"💡 (Tip: To sync historical activities, run manually with sync_all enabled)")
         print("=" * 60)
 
         for act in activities:
@@ -526,8 +531,9 @@ def main():
         save_synced_state(now_ts, synced_state)
         return
 
-    last_sync_str = datetime.fromtimestamp(last_sync_ts, tz=timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC')
-    print(f"⏱️ [State] Last registered sync time: {last_sync_str}")
+    if last_sync_ts is not None:
+        last_sync_str = datetime.fromtimestamp(last_sync_ts, tz=timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC')
+        print(f"⏱️ [State] Last registered sync time: {last_sync_str}")
 
     # Pre-check activities already on Intervals.icu to avoid duplicate downloading
     intervals_existing = intervals_client.fetch_existing_external_ids()
@@ -551,7 +557,7 @@ def main():
         if r_id in synced_state:
             continue
         act_ts = parse_activity_timestamp(act.get("startTime"))
-        if act_ts is not None and act_ts <= last_sync_ts:
+        if not sync_all and last_sync_ts is not None and act_ts is not None and act_ts <= last_sync_ts:
             continue
         new_activities.append(act)
 
