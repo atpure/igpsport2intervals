@@ -1,10 +1,10 @@
 # 🚴 iGPSPORT to Intervals.icu Auto-Sync
 
-**iGPSPORT**의 오리지널 `.FIT` 라이딩 기록을 **Intervals.icu** 및 **Strava**로 완전 자동 동기화해 주는 **GitHub Actions 클라우드 동기화 봇**입니다.
+**iGPSPORT**의 오리지널 `.FIT` 라이딩 기록을 **Intervals.icu**(및 선택 시 **Strava**)로 자동 동기화해 주는 **GitHub Actions 클라우드 동기화 봇**입니다.
 
 * ⚡ **무설치 클라우드 실행**: PC를 켜둘 필요 없이 GitHub Actions가 클라우드에서 24시간 자동 실행됩니다.
 * 📦 **오리지널 .FIT 파일 전송**: iGPSPORT 원본 바이너리 데이터를 직접 전달하여 파워, 케이던스, 심박, 기어비, GPS 원본 데이터를 온전히 보존합니다.
-* 🔄 **인터벌스 ➔ 스트라바 이중 동기화**: Intervals.icu에 먼저 업로드 후 30초 대기열을 거쳐 Strava로 등록되므로 Intervals의 Webhook 자동 연동이 완벽하게 지원됩니다.
+* 🔄 **Intervals.icu 기본 동기화 & (선택) Strava 동시 동기화**: 기본적으로 Intervals.icu로 자동 동기화되며, Strava 시크릿을 추가 등록할 경우에 한해 Intervals.icu에 먼저 업로드 후 30초 대기열을 거쳐 Strava로 순차 등록되어 Intervals의 Webhook 자동 연동이 완벽하게 지원됩니다.
 * 🛡️ **Fork 지원 & 무료 무제한**: 이 저장소를 본인 계정으로 Fork(포크)만 하면 무료로 즉시 사용할 수 있습니다.
 
 ---
