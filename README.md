@@ -18,10 +18,14 @@
 
 ---
 
-### 2단계: 저장소 쓰기 권한(Workflow permissions) 확인
-Fork한 저장소에서 동기화 상태 기록(`synced_rides.json`)을 자동 커밋할 수 있도록 쓰기 권한을 활성화합니다:
+### 2단계: 저장소 쓰기 권한(Workflow permissions) 활성화
+GitHub Actions가 동기화 기록(`synced_rides.json`)을 저장소에 자동 커밋(`git push`)할 수 있도록 쓰기 권한을 설정합니다:
 1. 포크한 내 저장소의 **`Settings` ➔ `Actions` ➔ `General`** 메뉴로 이동합니다.
-2. 페이지 하단의 **`Workflow permissions`** 섹션에서 **`Read and write permissions`**를 선택하고 **[Save]**를 클릭합니다.
+2. 페이지 가장 아래의 **`Workflow permissions`** 섹션을 찾습니다.
+3. 두 가지 라디오 옵션 중 첫 번째인 **`◉ Read and write permissions`**를 선택합니다.
+   * `Workflows have read and write permissions in the repository for all scopes.` 항목에 체크
+   * (*참고: 하단의 'Allow GitHub Actions to create and approve pull requests' 체크박스는 선택하지 않아도 됩니다.*)
+4. 바로 아래 **[Save]** 버튼을 클릭하여 저장합니다.
 
 ---
 
