@@ -59,8 +59,9 @@ GitHub Actions가 동기화 기록(`synced_rides.json`)을 저장소에 자동 �
 2. *"Workflows aren't being run on this forked repository"* 안내가 나오면 녹색 **[I understand my workflows, go ahead and enable them]** 버튼을 클릭합니다.
 3. 좌측 목록에서 **`iGPSPORT to Intervals.icu Sync`**를 클릭합니다.
 4. 화면 상단에 *"This scheduled workflow is disabled because scheduled workflows are disabled by default in forks."* 안내가 나타나면 **[Enable workflow]** 버튼을 클릭합니다.
-5. 활성화된 후 우측 상단에 나타나는 **[Run workflow]** 버튼을 눌러 첫 동기화를 즉시 실행합니다.
-   * **과거 활동 동기화:** 기존 iGPSPORT의 과거 라이딩 기록도 모두 Intervals.icu로 가져오고 싶다면, `Run workflow` 클릭 시 나타나는 `과거 활동도 모두 동기화 (Sync historical activities)` 체크박스를 활성화하고 실행하세요.
+5. 활성화된 후 우측 상단의 **[Run workflow]** 버튼을 누르면 팝업 설정창이 나타납니다:
+   * **기본 실행 (추천):** 옵션을 건드리지 않고 아래의 초록색 **[Run workflow]** 버튼을 클릭하면, 현재 시점 이후의 **신규 라이딩부터 자동 동기화**되도록 첫 기준점(Baseline)이 설정됩니다.
+   * **과거 기록 동기화:** iGPSPORT의 이전 라이딩 기록도 Intervals.icu로 한 번에 가져오고 싶다면, **`[✓] 과거 활동도 모두 동기화 (Sync historical activities)`** 체크박스를 체크한 뒤 초록색 **[Run workflow]**를 클릭하세요. (가져올 개수는 '확인할 최근 활동 개수'에서 조절 가능)
 
 ---
 
