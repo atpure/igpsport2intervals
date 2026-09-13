@@ -27,6 +27,8 @@ concurrency:
 jobs:
   sync:
     runs-on: ubuntu-latest
+    # Run only if secrets are configured, or if manually triggered via workflow_dispatch
+    if: ${{ secrets.IGPSPORT_USER != '' || github.event_name == 'workflow_dispatch' }}
 
     steps:
       - name: Checkout Repository
