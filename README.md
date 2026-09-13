@@ -35,12 +35,12 @@ GitHub Actions가 동기화 기록(`synced_rides.json`)을 저장소에 자동 �
 #### 필수 Secret (iGPSPORT & Intervals.icu)
 | Secret 이름 | 설명 | 예시 |
 | :--- | :--- | :--- |
-| **`IGPSPORT_USER`** | [iGPSPORT](https://www.igpsport.com) (모바일 앱/웹) 로그인 이메일 또는 전화번호 | `user@gmail.com` |
-| **`IGPSPORT_PASS`** | [iGPSPORT](https://www.igpsport.com) 계정 비밀번호 | `mypassword123!` |
+| **`IGPSPORT_USER`** | iGPSPORT 앱 로그인 이메일 | `user@gmail.com` |
+| **`IGPSPORT_PASS`** | iGPSPORT 앱 계정 비밀번호 | `mypassword123!` |
 | **`INTERVALS_API_KEY`** | [Intervals.icu](https://intervals.icu) API Key (*발급 방법 하단 참고*) | `a1b2c3d4e5...` |
 | **`INTERVALS_ATHLETE_ID`** | [Intervals.icu](https://intervals.icu) Athlete ID (기본값: `0`) | `i123456` 또는 `0` |
 
-> 💡 **iGPSPORT 계정 안내:** 속도계 연동 시 사용하는 **[iGPSPORT 모바일 앱](https://www.igpsport.com) 및 공식 웹사이트**의 로그인 이메일(또는 전화번호)과 비밀번호를 그대로 등록하시면 됩니다.
+> 💡 **iGPSPORT 계정 안내:** 스마트폰의 **iGPSPORT 공식 앱(Android / iOS)**에서 회원가입 및 로그인할 때 사용하는 이메일과 비밀번호를 등록하시면 됩니다.
 
 #### 선택 Secret (Strava 동시 등록)
 > 💡 Strava에도 함께 기록을 올리고 싶을 때만 아래 3가지를 추가로 등록합니다.  
