@@ -550,14 +550,11 @@ def main():
                     "syncedAt": now_utc.isoformat(),
                 }
 
-    # Filter activities that are newer than last_sync_ts AND not in synced_state
+    # Filter activities that are not yet in synced_state
     new_activities = []
     for act in activities:
         r_id = act["rideId"]
         if r_id in synced_state:
-            continue
-        act_ts = parse_activity_timestamp(act.get("startTime"))
-        if not sync_all and last_sync_ts is not None and act_ts is not None and act_ts <= last_sync_ts:
             continue
         new_activities.append(act)
 
@@ -621,7 +618,7 @@ def main():
             }
             synced_count += 1
             act_ts = parse_activity_timestamp(start_time)
-            if act_ts and act_ts > latest_synced_ts:
+            if act_ts and (latest_synced_ts is None or act_ts > latest_synced_ts):
                 latest_synced_ts = act_ts
 
             # 2. Upload to Strava after 30 seconds (if Strava credentials configured)
@@ -633,7 +630,7 @@ def main():
             failed_count += 1
 
     # Save state
-    save_synced_state(latest_synced_ts, synced_state)
+    save_synced_state(latest_synced_ts or now_ts, synced_state)
 
     print("\n" + "=" * 60)
     print(f"🎉 Synchronization complete: {synced_count} synced, {failed_count} failed.")
