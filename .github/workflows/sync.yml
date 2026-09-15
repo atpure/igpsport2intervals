@@ -2,8 +2,8 @@ name: iGPSPORT to Intervals.icu Sync
 
 on:
   schedule:
-    # Runs every 5 minutes at minutes 2, 7, 12, 17, 22, 27, 32, 37, 42, 47, 52, 57
-    - cron: '2-59/5 * * * *'
+    # Runs every 55 minutes at minutes 2 and 57 of every hour
+    - cron: '2-59/55 * * * *'
   workflow_dispatch: # Allows manual trigger from Actions tab
     inputs:
       sync_all:
